@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.view_searchbar.*
 
 class MainActivity : AppCompatActivity() {
 
