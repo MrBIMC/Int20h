@@ -14,8 +14,7 @@
             android:layout_height="wrap_content"
             android:scaleType="center"
             android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_magnify_grey600_36dp"/>
+            android:layout_alignParentRight="true"/>
         <EditText
             android:paddingLeft="12dp"
             android:id="@+id/searchBar"
