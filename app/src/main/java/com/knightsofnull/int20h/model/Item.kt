@@ -8,5 +8,7 @@ data class Item(
         val name: String,
         val price: String,
         val catId: Int,
-        val producerId: Int
+        val producerId: Int,
+        val isItemPresent: Boolean,
+        val itemRating: String
 )

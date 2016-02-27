@@ -13,4 +13,6 @@ interface DataProvider {
     fun getCategories(typeId: Int): List<Category>
     fun getItems(categoryId: Int): List<Item>
     fun getProducer(producerId: Int): Producer
+
+    fun requestItem(item: Item)
 }
