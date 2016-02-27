@@ -8,11 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.Item
+import java.util.*
 
 /**
  * Created by yarolegovich on 27.02.2016.
  */
-class ShopAdapter(val data: List<Item>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ShopAdapter.ItemViewHolder>() {
+class ShopAdapter(val items: List<Item>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ShopAdapter.ItemViewHolder>() {
+
+    private val data = ArrayList(items)
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shop, parent, false)
@@ -27,6 +30,24 @@ class ShopAdapter(val data: List<Item>, val onItemClick: (Int) -> Unit) : Recycl
     }
 
     override fun getItemCount() = data.size
+
+    fun replaceData(items: List<Item>) {
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun notifyRemoveEach() {
+        for (i in 0..itemCount - 1) {
+            notifyItemRemoved(i)
+        }
+    }
+
+    fun notifyAddEach() {
+        for (i in 0..itemCount - 1) {
+            notifyItemInserted(i)
+        }
+    }
 
     class ItemViewHolder(view: View, val onItemClick: (Int) -> Unit) : RecyclerView.ViewHolder(view), View.OnClickListener {
 

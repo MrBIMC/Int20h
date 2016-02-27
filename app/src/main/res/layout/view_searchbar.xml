@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:layout_margin="6dp">
@@ -8,25 +7,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/searchImg"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:scaleType="center"
-            android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_magnify_grey600_36dp"/>
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_magnify_grey600_36dp" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true" />
+
         <EditText
-            android:paddingLeft="12dp"
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/searchImg"
-            android:textSize="20sp"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
-            android:hint="Я ищу..."/>
+            android:hint="Я ищу..."
+            android:paddingLeft="12dp"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

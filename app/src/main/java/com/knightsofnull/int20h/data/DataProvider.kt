@@ -1,9 +1,6 @@
 package com.knightsofnull.int20h.data
 
-import com.knightsofnull.int20h.model.Category
-import com.knightsofnull.int20h.model.Item
-import com.knightsofnull.int20h.model.Producer
-import com.knightsofnull.int20h.model.Type
+import com.knightsofnull.int20h.model.*
 
 /**
  * Created by yarolegovich on 27.02.2016.
@@ -11,8 +8,9 @@ import com.knightsofnull.int20h.model.Type
 interface DataProvider {
     fun getTypes(): List<Type>
     fun getCategories(typeId: Int): List<Category>
-    fun getItems(categoryId: Int): List<Item>
+    fun getItems(typeId: Int, categoryId: Int, query: String = ""): List<Item>
     fun getProducer(producerId: Int): Producer
+    fun getRequestsFor(itemId: Int): List<Request>
 
-    fun requestItem(item: Item)
+    fun requestItem(item: Request)
 }

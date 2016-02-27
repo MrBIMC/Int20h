@@ -1,25 +1,52 @@
-package com.knightsofnull.int20h
+package com.knightsofnull.int20h.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.view.Menu
+import android.view.View
+import com.knightsofnull.int20h.R
+import com.knightsofnull.int20h.event.OnScrollInChildEvent
+import com.knightsofnull.int20h.util.ScrollDirection
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.find
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
+
+    var bottomSheetBehavior by Delegates.notNull<BottomSheetBehavior<View>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setupToolbar()
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+
+        EventBus.getDefault().register(this)
+    }
+
+    @Subscribe
+    fun onScrollInChildEvent(event: OnScrollInChildEvent) {
+        when (event.direction) {
+            ScrollDirection.DOWN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            ScrollDirection.UP -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     fun setupToolbar() {
         setSupportActionBar(toolbar)
         viewpager.adapter = ViewPagerAdapter(fragmentManager)
         tabs.setupWithViewPager(viewpager)
-        tabs.requestFocus()
 
         (0..tabs.tabCount - 1).map {
             when(it) {

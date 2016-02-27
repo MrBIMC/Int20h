@@ -14,6 +14,10 @@ import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.data.MockStorage
 import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.model.Item
+import com.knightsofnull.int20h.model.Request
+import com.knightsofnull.int20h.model.Type
+import com.knightsofnull.int20h.util.ScrollDirection
+import com.knightsofnull.int20h.util.logD
 
 import kotlinx.android.synthetic.main.fragment_shop.*
 import kotlin.properties.Delegates
@@ -23,42 +27,51 @@ import kotlin.properties.Delegates
  */
 class ShopFragment : Fragment(), ShopView {
 
-    val presenter = ShopPresenterImpl(this)
+    var presenter by Delegates.notNull<ShopPresenter>()
 
     var bottomSheetBehaviour by Delegates.notNull<BottomSheetBehavior<View>>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter = ShopPresenterImpl(this, arguments.getInt(TYPE))
+        logD("OnCreate, presenter created")
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        logD("onCreateView")
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomSheetBehaviour = BottomSheetBehavior.from(bottomSheet)
-
         list.layoutManager = LinearLayoutManager(activity)
-        list.adapter = ShopAdapter(MockStorage().getItems()) { }
+        list.adapter = ShopAdapter(listOf()) { }
         list.addOnScrollListener(RecyclerScrollListener(presenter))
     }
 
-    override fun openCategories() {
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+
+    override fun showItems(items: List<Item>) {
+        val adapter = list.adapter as ShopAdapter
+        adapter.replaceData(items)
     }
 
-    override fun hideCategories() {
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-    }
-
-    override fun setItems(items: List<Item>) {
-
-    }
-
-    override fun setCategories(categories: List<Category>) {
+    override fun showRequests(requests: List<Request>) {
 
     }
 
-    override fun collapseCategories() {
-        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+    override fun showNewRequestForm() {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
     }
 
     class RecyclerScrollListener(val presenter: ShopPresenter) : RecyclerView.OnScrollListener() {
@@ -76,6 +89,17 @@ class ShopFragment : Fragment(), ShopView {
                 presenter.onItemsListScrolled(ScrollDirection.UP)
             }
             mPreviousScroll = mCurrentScroll
+        }
+    }
+
+    companion object {
+        val TYPE = "arg.type"
+        fun create(typeId: Int): ShopFragment {
+            val args = Bundle()
+            args.putInt(TYPE, typeId)
+            val fragment = ShopFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

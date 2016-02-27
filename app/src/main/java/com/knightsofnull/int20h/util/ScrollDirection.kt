@@ -1,4 +1,4 @@
-package com.knightsofnull.int20h.shop
+package com.knightsofnull.int20h.util
 
 /**
  * Created by yarolegovich on 27.02.2016.

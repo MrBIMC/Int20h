@@ -1,9 +1,13 @@
 package com.knightsofnull.int20h.data
 
-import com.knightsofnull.int20h.model.Category
-import com.knightsofnull.int20h.model.Item
-import com.knightsofnull.int20h.model.Producer
-import com.knightsofnull.int20h.model.Type
+import android.content.Context
+import android.preference.PreferenceManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.knightsofnull.int20h.App
+import com.knightsofnull.int20h.model.*
+import org.json.JSONArray
+import java.util.*
 
 /**
  * Created by yarolegovich on 27.02.2016.
@@ -35,16 +39,16 @@ class MockStorage : Storage {
     )
 
     override fun getItems() = listOf(
-            Item(1, "Bricks", "100 uah", 1, 1, true, 214),
-            Item(2, "Clay", "30 uah", 1, 1, true, 123),
-            Item(3, "Screws", "20 uah", 1, 1, true, 312),
-            Item(4, "Hematogen", "12 uah", 2, 2, true, 1299),
-            Item(5, "Lacoste T-shirt", "400 uah", 6, 3, true, 502),
-            Item(6, "Gabano shoes", "900 uah", 6, 3, true, 1300),
-            Item(7, "Boxing gloves", "430 uah", 9, 3, true, 514),
-            Item(8, "Android app development", "15$/hour", 13, 4, true, 5020),
-            Item(9, "UI/UX design", "20$/hour", 11, 5, true, 3200),
-            Item(10, "App reviews", "10$/hour", 12, 6, true, 9999)
+            Item(1, "Bricks", "100 uah", 1, 1, 214),
+            Item(2, "Clay", "30 uah", 1, 1, 123),
+            Item(3, "Screws", "20 uah", 1, 1, 312),
+            Item(4, "Hematogen", "12 uah", 2, 2, 1299),
+            Item(5, "Lacoste T-shirt", "400 uah", 6, 3, 502),
+            Item(6, "Gabano shoes", "900 uah", 6, 3, 1300),
+            Item(7, "Boxing gloves", "430 uah", 9, 3, 514),
+            Item(8, "Android app development", "15$/hour", 13, 4, 5020),
+            Item(9, "UI/UX design", "20$/hour", 11, 5, 3200),
+            Item(10, "App reviews", "10$/hour", 12, 6, 9999)
     )
 
     override fun getProducers() = listOf(
@@ -57,8 +61,38 @@ class MockStorage : Storage {
 
     )
 
-    override fun putItem(item: Item) {
+    override fun getRequests(): List<Request> {
+        val context = App.instance.applicationContext
+        val storage = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE)
+        val requestsJson = storage.getString(REQUESTS, "")
+        return if (!requestsJson.isEmpty()) {
+            val token = object: TypeToken<List<Request>>() {}
+            Gson().fromJson(requestsJson, token.type)
+        } else listOf()
+    }
 
+    override fun saveRequest(item: Request) {
+        val context = App.instance.applicationContext
+        val storage = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE)
+        val requestsJson = storage.getString(REQUESTS, "")
+        val requests = if (!requestsJson.isEmpty()) {
+            val token = object: TypeToken<List<Request>>() {}
+            Gson().fromJson(requestsJson, token.type)
+        } else ArrayList<Request>()
+
+        if (requests.contains(item)) {
+            requests.remove(item)
+            requests.add(Request.incrementVotes(item))
+        } else {
+            requests.add(item)
+        }
+
+        storage.edit().putString(STORAGE, Gson().toJson(requests))
+    }
+
+    companion object {
+        private const val STORAGE = "requests"
+        private const val REQUESTS = "key_requests"
     }
 
 }
