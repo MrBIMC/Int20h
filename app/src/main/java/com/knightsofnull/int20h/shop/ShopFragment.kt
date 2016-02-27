@@ -1,6 +1,7 @@
 package com.knightsofnull.int20h.shop
 
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.design.widget.BottomSheetBehavior
@@ -13,6 +14,7 @@ import android.widget.AbsListView
 import android.widget.TextView
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.data.MockStorage
+import com.knightsofnull.int20h.itempage.ItemPageActivity
 import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.model.Item
 import com.knightsofnull.int20h.model.Request
@@ -80,6 +82,13 @@ class ShopFragment : Fragment(), ShopView {
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+    }
+
+    override fun navigateToItemPreview(item: Item) {
+        logD("item = $item")
+        val intent = Intent(activity, ItemPageActivity::class.java)
+        intent.putExtra(ItemPageActivity.KEY_ITEM, item)
+        startActivity(intent)
     }
 
     class RecyclerScrollListener(val presenter: ShopPresenter) : RecyclerView.OnScrollListener() {

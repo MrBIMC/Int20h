@@ -7,7 +7,6 @@ import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
 import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.util.ScrollDirection
-import com.knightsofnull.int20h.util.logD
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -35,7 +34,8 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
     }
 
     override fun onItemClicked(position: Int) {
-
+        val item = provider.getItems(typeId, currentCategory)[position]
+        view?.navigateToItemPreview(item)
     }
 
     override fun onItemsListScrolled(direction: ScrollDirection) {

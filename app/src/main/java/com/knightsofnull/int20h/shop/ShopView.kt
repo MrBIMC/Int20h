@@ -11,5 +11,5 @@ interface ShopView {
     fun showItems(items: List<Item>)
     fun showRequests(requests: List<Request>)
     fun showNewRequestForm()
-
+    fun navigateToItemPreview(item: Item)
 }
