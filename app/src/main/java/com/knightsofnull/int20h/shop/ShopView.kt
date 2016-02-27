@@ -9,6 +9,7 @@ import com.knightsofnull.int20h.model.Item
 interface ShopView {
     fun openCategories()
     fun hideCategories()
+    fun collapseCategories()
     fun setItems(items: List<Item>)
     fun setCategories(categories: List<Category>)
 }

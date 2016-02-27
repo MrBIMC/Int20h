@@ -9,6 +9,7 @@ interface ShopPresenter {
     fun onCategoriesFabClicked()
     fun onCategorySelected(position: Int)
     fun onItemClicked(position: Int)
+    fun onItemsListScrolled(direction: ScrollDirection)
     fun onDestroy()
 
 }
