@@ -6,9 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Map;
 
 public class LoginPresenter {
@@ -22,9 +19,10 @@ public class LoginPresenter {
         Map<String, ?> allEntries = preferences.getAll();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
 
-            String st = entry.getValue()
+            String st = entry.getValue().toString();
 
-            //Toast t = Toast.makeText(context, jsonObject)
+            Toast t = Toast.makeText(context, st, Toast.LENGTH_SHORT);
+            t.show();
         }
 
     }
