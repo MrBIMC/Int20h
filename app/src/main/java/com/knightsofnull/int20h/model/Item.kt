@@ -10,5 +10,5 @@ data class Item(
         val catId: Int,
         val producerId: Int,
         val isItemPresent: Boolean,
-        val itemRating: String
+        val itemRating: Int
 )

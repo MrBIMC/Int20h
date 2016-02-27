@@ -7,5 +7,5 @@ data class Producer(
         val id: Int,
         val name: String,
         val phone: String,
-        val reputation: Int
+        val goodResponsesPercent: String
 )

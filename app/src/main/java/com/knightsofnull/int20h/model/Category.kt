@@ -7,4 +7,8 @@ data class Category(
         val catId: Int,
         val typeId: Int,
         val name: String
-)
+) {
+        companion object {
+                val ALL = Category(0, 0, "ALL")
+        }
+}

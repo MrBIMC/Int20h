@@ -1,4 +1,4 @@
-package com.knightsofnull.int20h
+package com.knightsofnull.int20h.data
 
 import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.model.Item
