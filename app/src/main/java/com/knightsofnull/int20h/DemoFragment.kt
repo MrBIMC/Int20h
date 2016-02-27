@@ -19,9 +19,9 @@ class DemoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val list = listOf("Computers", "Cloth", "Phones", "Stuff", "Another stuff", "Different kind of stuff")
         chipList.addChips(list)
         chipList.setOnChipClickListener { Toast.makeText(activity, "$it clicked!", Toast.LENGTH_SHORT).show() }
-        super.onViewCreated(view, savedInstanceState)
     }
 }

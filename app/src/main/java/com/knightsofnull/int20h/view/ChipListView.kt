@@ -50,7 +50,7 @@ class ChipListView : LinearLayout {
 
     private fun init(attrs: AttributeSet? = null) {
         orientation = LinearLayout.VERTICAL
-        updateChipViews()
+//        updateChipViews()
     }
 
     private fun updateChipViews() {
@@ -69,17 +69,22 @@ class ChipListView : LinearLayout {
 
     private fun addNewChip(chip: View) {
         if(childCount == 0) addRow()
-        else if(getChildAt(childCount - 1).width + chip.width >= width) addRow()
+        else if(getChildAt(childCount - 1).measuredWidth + chip.measuredWidth >= measuredWidth) addRow()
 
         val row: LinearLayout = getChildAt(childCount - 1) as LinearLayout
         row.addView(chip)
         invalidate()
 
-        Log.d(javaClass.simpleName, "childViewWidth = ${chip.width} + row width = ${getChildAt(childCount - 1).width} parent width = $width")
+        Log.d(javaClass.simpleName, "childViewWidth = ${chip.measuredWidth} + row width = ${getChildAt(childCount - 1).measuredWidth} parent width = $measuredWidth")
     }
 
     fun addChips(chips: List<String>) {
         this.chips.addAll(chips)
+        updateChipViews()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         updateChipViews()
     }
 

@@ -1,5 +1,6 @@
 package com.knightsofnull.int20h.main
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
@@ -8,6 +9,8 @@ import android.view.View
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.util.ScrollDirection
+import android.view.MenuItem
+import com.knightsofnull.int20h.authentication.login.LoginActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -60,6 +63,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.account -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
