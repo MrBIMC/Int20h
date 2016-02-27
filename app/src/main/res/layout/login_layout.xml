@@ -2,35 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     android:gravity="center"
     android:orientation="vertical">
 
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="170dp"
+        android:layout_width="190dp"
         android:layout_height="40dp"
+
         android:hint="@string/login_email"></EditText>
 
     <EditText
+
         android:id="@+id/password"
-        android:layout_width="170dp"
+        android:layout_width="190dp"
         android:layout_height="40dp"
         android:hint="@string/login_password"></EditText>
 
-    <TableRow android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnRegistration"
+            android:layout_width="115dp"
+            android:layout_height="40dp"
             android:layout_gravity="right"
-            android:text="@string/btnRegistrationText" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/btnRegistrationText"
+            android:textColor="@color/icons"></Button>
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btnLoginText" />
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/btnLoginText"
+            android:textColor="@color/icons" />
     </TableRow>
 
 

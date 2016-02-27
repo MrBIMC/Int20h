@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/nameRegistration"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:hint="@string/nameRegistrationHint"></EditText>
+
+    <EditText
+        android:id="@+id/surnameRegistration"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:hint="@string/surnameRegistrationHint"></EditText>
+
+    <EditText
+        android:id="@+id/emailRegistration"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:hint="@string/emailRegistrationHint"></EditText>
+
+    <EditText
+        android:id="@+id/passwordRegistration"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:hint="@string/passwordRegistrationHint"></EditText>
+
+    <Button
+        android:id="@+id/btnRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:text="@string/btnRegistrationText"
+        android:textColor="@color/icons" />
+
+</LinearLayout>
