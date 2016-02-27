@@ -17,19 +17,22 @@ import org.greenrobot.eventbus.Subscribe
 class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
                         val provider: DataProvider = PromDataProvider()) : ShopPresenter {
 
+    var currentCategory = Category.ALL.catId
+
     init {
         EventBus.getDefault().register(this)
     }
 
     @Subscribe
-    fun onSearchQuery(query: SearchQueryEnteredEvent) {
-
+    fun onSearchQuery(queryEvent: SearchQueryEnteredEvent) {
+        showItems(queryEvent.query)
     }
 
 
     @Subscribe
     fun onCategorySelected(category: OnCategorySelectedEvent) {
-
+        currentCategory = category.catId
+        showItems()
     }
 
     override fun onItemClicked(position: Int) {
@@ -41,13 +44,27 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
     }
 
     override fun onResume() {
-        val items = provider.getItems(typeId, Category.ALL.catId)
-        view?.showItems(items)
+        showItems()
     }
 
     override fun onDestroy() {
         view = null
         EventBus.getDefault().unregister(this)
     }
+
+    private fun showItems(query: String = "") {
+        val items = provider.getItems(typeId, currentCategory, query)
+        if (!items.isEmpty()) {
+            view?.showItems(items)
+        } else {
+            val requests = provider.getRequestsFor(currentCategory, query)
+            if (requests.isEmpty()) {
+                view?.showNewRequestForm()
+            } else {
+                view?.showRequests(requests)
+            }
+        }
+    }
+
 
 }

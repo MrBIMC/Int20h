@@ -8,4 +8,6 @@
     <string name="surnameRegistrationHint">Surname</string>
     <string name="emailRegistrationHint">Email</string>
     <string name="passwordRegistrationHint">Password</string>
+    <string name="no_search_result">К сожалению, поиск не дал результатов, но вы можете оставить запрос на искомый товар или услугу</string>
+    <string name="create_request">Создать запрос</string>
 </resources>

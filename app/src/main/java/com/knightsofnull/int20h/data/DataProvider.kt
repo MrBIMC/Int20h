@@ -10,7 +10,7 @@ interface DataProvider {
     fun getCategories(typeId: Int): List<Category>
     fun getItems(typeId: Int, categoryId: Int, query: String = ""): List<Item>
     fun getProducer(producerId: Int): Producer
-    fun getRequestsFor(itemId: Int): List<Request>
+    fun getRequestsFor(catId: Int, query: String = ""): List<Request>
 
     fun requestItem(item: Request)
 }

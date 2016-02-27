@@ -32,16 +32,12 @@ class ShopFragment : Fragment(), ShopView {
 
     var presenter by Delegates.notNull<ShopPresenter>()
 
-    var bottomSheetBehaviour by Delegates.notNull<BottomSheetBehavior<View>>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = ShopPresenterImpl(this, arguments.getInt(TYPE))
-        logD("OnCreate, presenter created")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        logD("onCreateView")
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
 
@@ -55,16 +51,23 @@ class ShopFragment : Fragment(), ShopView {
 
 
     override fun showItems(items: List<Item>) {
+        list.visibility = View.VISIBLE
         val adapter = list.adapter as ShopAdapter
+        adapter.type = ShopAdapter.TYPE_ITEM
         adapter.replaceData(items)
     }
 
     override fun showRequests(requests: List<Request>) {
-
+        addRequestContainer.visibility = View.GONE
+        list.visibility = View.VISIBLE
+        val adapter = list.adapter as ShopAdapter
+        adapter.type = ShopAdapter.TYPE_REQUEST
+        adapter.replaceData(requests)
     }
 
     override fun showNewRequestForm() {
-
+        list.visibility = View.GONE
+        addRequestContainer.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

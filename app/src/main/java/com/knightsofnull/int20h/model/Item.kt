@@ -10,4 +10,4 @@ data class Item(
         val catId: Int,
         val producerId: Int,
         val itemRating: Int
-)
+) : ShopModel

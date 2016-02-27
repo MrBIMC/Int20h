@@ -30,7 +30,15 @@ class PromDataProvider(val storage: Storage = MockStorage()) : DataProvider {
         it.id == producerId
     }.first()
 
-    override fun getRequestsFor(itemId: Int) = storage.getRequests().filter { it.itemId == itemId }
+//    override fun getRequestsFor(catId: Int, query: String): List<Request> {
+//        val requests = storage.getRequests().filter { it.catId == catId }
+//        return if (query.isEmpty()) requests else requests.filter { it.name.contains(query) }
+//    }
+
+    override fun getRequestsFor(catId: Int, query: String) = listOf(
+            Request(1, "Add animations", "Add animations to this damn app please", 42),
+            Request(2, "Add FlowLayout", "Pavel, add flow layout please", 23)
+    )
 
     override fun requestItem(item: Request) {
         storage.saveRequest(item)
