@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Int20h</string>
     <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
 </resources>
