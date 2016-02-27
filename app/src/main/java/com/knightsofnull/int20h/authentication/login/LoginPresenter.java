@@ -22,8 +22,6 @@ public class LoginPresenter {
         Map<String, ?> allEntries = preferences.getAll();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
 
-            String st = entry.getValue()
-
             //Toast t = Toast.makeText(context, jsonObject)
         }
 
