@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.TextView
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.data.MockStorage
 import com.knightsofnull.int20h.model.Category
@@ -20,6 +21,8 @@ import com.knightsofnull.int20h.util.ScrollDirection
 import com.knightsofnull.int20h.util.logD
 
 import kotlinx.android.synthetic.main.fragment_shop.*
+import kotlinx.android.synthetic.main.view_bottom_sheet.*
+import kotlinx.android.synthetic.main.view_bottom_sheet.view.*
 import kotlin.properties.Delegates
 
 /**

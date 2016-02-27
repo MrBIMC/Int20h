@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".authentication.login.LoginActivity" />
+
+        <activity android:name=".itempage.ItemPageActivity" />
+
     </application>
 
 </manifest>
