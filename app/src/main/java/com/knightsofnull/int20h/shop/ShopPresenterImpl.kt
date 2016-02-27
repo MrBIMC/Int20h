@@ -28,7 +28,6 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
         showItems(queryEvent.query)
     }
 
-
     @Subscribe
     fun onCategorySelected(category: OnCategorySelectedEvent) {
         currentCategory = category.catId

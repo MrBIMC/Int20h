@@ -45,12 +45,14 @@ class ShopFragment : Fragment(), ShopView {
         super.onViewCreated(view, savedInstanceState)
 
         list.layoutManager = LinearLayoutManager(activity)
-        list.adapter = ShopAdapter(listOf()) { }
+        list.adapter = ShopAdapter(listOf()) { position ->
+            presenter.onItemClicked(position)
+        }
         list.addOnScrollListener(RecyclerScrollListener(presenter))
     }
 
-
     override fun showItems(items: List<Item>) {
+        addRequestContainer.visibility = View.GONE
         list.visibility = View.VISIBLE
         val adapter = list.adapter as ShopAdapter
         adapter.type = ShopAdapter.TYPE_ITEM

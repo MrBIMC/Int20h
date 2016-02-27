@@ -67,13 +67,13 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
     }
 
     class ItemHolder(view: View, onItemClick: (Int) -> Unit) : ShopViewHolder(view, onItemClick) {
-
+        
         val name by lazy { view.findViewById(R.id.name) as TextView }
         val rating by lazy { view.findViewById(R.id.rating) as TextView }
         val image by lazy { view.findViewById(R.id.image) as ImageView }
 
         override fun onClick(view: View) {
-            onItemClick(0)
+            onItemClick(adapterPosition)
         }
     }
 
