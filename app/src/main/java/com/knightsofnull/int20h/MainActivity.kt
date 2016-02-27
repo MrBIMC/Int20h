@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_searchbar.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         viewpager.adapter = ViewPagerAdapter(fragmentManager)
         tabs.setupWithViewPager(viewpager)
+        tabs.requestFocus()
 
         (0..tabs.tabCount - 1).map {
             when(it) {
