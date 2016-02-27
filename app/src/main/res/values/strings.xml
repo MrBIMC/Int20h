@@ -4,4 +4,8 @@
     <string name="login_password">Password</string>
     <string name="btnLoginText">Login</string>
     <string name="btnRegistrationText">Registration</string>
+    <string name="nameRegistrationHint">Name</string>
+    <string name="surnameRegistrationHint">Surname</string>
+    <string name="emailRegistrationHint">Email</string>
+    <string name="passwordRegistrationHint">Password</string>
 </resources>
