@@ -41,7 +41,7 @@ class ShopFragment : Fragment(), ShopView {
             }
         })
 
-        list.layoutManager = LinearLayoutManager(context)
+        list.layoutManager = LinearLayoutManager(activity)
         list.adapter = ShopAdapter(MockStorage().getItems()) { position ->
             bottomSheetBehaviour.peekHeight = bottomSheet.height
             bottomSheet.requestLayout()

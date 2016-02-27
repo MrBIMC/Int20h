@@ -16,12 +16,13 @@
         android:layout_height="300dp"
         android:fitsSystemWindows="true"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="0dp"
+        app:behavior_peekHeight="100dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:layout_gravity="right" />
 
         <LinearLayout
