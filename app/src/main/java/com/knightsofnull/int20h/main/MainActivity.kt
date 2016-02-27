@@ -1,5 +1,6 @@
 package com.knightsofnull.int20h.main
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
@@ -7,9 +8,11 @@ import android.support.v4.view.ViewPager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import com.knightsofnull.int20h.R
+import com.knightsofnull.int20h.authentication.login.LoginActivity
 import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
 import com.knightsofnull.int20h.util.ScrollDirection
@@ -51,12 +54,12 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         searchBar.setText("")
     }
 
-    override fun hideCategories() {
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-    }
-
-    override fun onPageSelected(position: Int) {
-        presenter.onPageChanged()
+    @Subscribe
+    fun onScrollInChildEvent(event: OnScrollInChildEvent) {
+        when (event.direction) {
+            ScrollDirection.DOWN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            ScrollDirection.UP -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     override fun onDestroy() {
@@ -76,11 +79,30 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
                 2 -> it to R.drawable.ic_account_star_white_48dp
                 else -> it to R.mipmap.ic_launcher
             }
-        }.forEach { tabs.getTabAt(it.first)?.icon = resources.getDrawable(it.second, theme) }
+        }
+        .forEach { tabs.getTabAt(it.first)?.apply {
+            if(android.os.Build.VERSION.SDK_INT >= 21){
+                icon = resources.getDrawable(it.second, theme)
+            } else {
+                icon = resources.getDrawable(it.second)
+            }
+
+        } }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.account -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return false
     }
 
     override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -99,4 +121,9 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
     override fun afterTextChanged(editable: Editable) {
     }
 
+    override fun hideCategories() {
+    }
+
+    override fun onPageSelected(p0: Int) {
+    }
 }
