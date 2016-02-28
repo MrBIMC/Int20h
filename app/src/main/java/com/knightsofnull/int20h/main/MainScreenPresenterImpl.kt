@@ -41,7 +41,7 @@ class MainScreenPresenterImpl(
         currentCategory = position
         val currentCatName = provider.getCategories(currentType)[currentCategory].name
         view?.setCurrentCategory(currentCatName)
-        EventBus.getDefault().post(OnCategorySelectedEvent(position))
+        EventBus.getDefault().post(OnCategorySelectedEvent(position, currentType))
     }
 
     override fun onResume() {

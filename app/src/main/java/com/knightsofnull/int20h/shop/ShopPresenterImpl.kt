@@ -26,8 +26,10 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
 
     @Subscribe
     fun onCategorySelected(category: OnCategorySelectedEvent) {
-        currentCategory = category.catId
-        showItems()
+        if (category.receiverType == typeId) {
+            currentCategory = category.catId
+            showItems()
+        }
     }
 
     override fun onItemClicked(position: Int) {
