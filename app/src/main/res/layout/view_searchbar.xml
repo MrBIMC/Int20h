@@ -8,14 +8,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/searchImg"
-            android:layout_width="48dp"
+        <LinearLayout
+            android:id="@+id/iconsHolder"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:scaleType="center"
-            android:src="@drawable/ic_magnify_grey600_36dp" />
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/searchImg"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_magnify_grey600_36dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="?android:attr/dividerVertical"/>
+
+            <ImageView
+                android:id="@+id/accountImg"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="center"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_account_circle_grey600_24dp" />
+
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="0dp"
@@ -28,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/searchImg"
+            android:layout_toLeftOf="@+id/iconsHolder"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="Я ищу..."
