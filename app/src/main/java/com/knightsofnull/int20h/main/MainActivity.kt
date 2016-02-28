@@ -2,8 +2,10 @@ package com.knightsofnull.int20h.main
 
 import android.animation.Animator
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -14,14 +16,15 @@ import android.view.View
 import android.view.animation.Animation
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.authentication.login.LoginActivity
-import com.knightsofnull.int20h.util.AnimationEndListener
-import com.knightsofnull.int20h.util.logD
+import com.knightsofnull.int20h.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_bottom_sheet.*
 import kotlinx.android.synthetic.main.view_searchbar.*
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager.OnPageChangeListener {
+
+    private var dashColors by Delegates.notNull<IntArray>()
 
     var presenter by Delegates.notNull<MainScreenPresenter>()
     var bottomSheetBehavior by Delegates.notNull<BottomSheetBehavior<View>>()
@@ -38,6 +41,12 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         viewpager.addOnPageChangeListener(this)
         filtersFab.setOnClickListener { presenter.onFiltersFabClicked() }
         chipsView.setOnChipClickListener { presenter.onCategorySelected(it) }
+
+        dashColors = intArrayOf(
+                ContextCompat.getColor(this, R.color.primary),
+                ContextCompat.getColor(this, R.color.materialRed),
+                ContextCompat.getColor(this, R.color.materialGreen)
+        )
     }
 
     override fun collapseCategories() {
@@ -117,6 +126,8 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         }
     }
 
+    fun getPageColor() = dashColors[viewpager.currentItem]
+
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        menuInflater.inflate(R.menu.main, menu)
 //        return true
@@ -140,13 +151,19 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         presenter.onQueryChanged(text.toString())
     }
 
+
     override fun beforeTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
     }
 
     override fun onPageScrollStateChanged(p0: Int) {
     }
 
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        if (position + 1 >= dashColors.size) return
+        val bgColor = blendColors(dashColors[position + 1], dashColors[position], positionOffset)
+        tabs.setBackgroundColor(bgColor)
+        toolbar.setBackgroundColor(bgColor)
+        colorStatusBar(this, darkenColor(bgColor))
     }
 
     override fun afterTextChanged(editable: Editable) {

@@ -8,6 +8,8 @@ import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.Item
+import com.knightsofnull.int20h.util.colorStatusBar
+import com.knightsofnull.int20h.util.darkenColor
 import com.knightsofnull.int20h.util.logD
 import kotlinx.android.synthetic.main.activity_item.*
 
@@ -24,10 +26,15 @@ class ItemPageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val item = intent.extras.getSerializable(KEY_ITEM) as Item
+        val color = intent.extras.getInt(KEY_COLOR, R.color.primary)
+
+        collapsingToolbar.setContentScrimColor(color)
 
         supportActionBar?.title = item.name
         price.text = item.price
         rating.text = item.itemRating.toString()
+
+        colorStatusBar(this, darkenColor(color))
 
         Glide.with(this).load(item.itemImage).into(image)
     }
@@ -41,5 +48,6 @@ class ItemPageActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_ITEM = "item"
+        const val KEY_COLOR = "color"
     }
 }

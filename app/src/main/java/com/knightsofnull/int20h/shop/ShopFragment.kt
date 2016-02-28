@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.data.MockStorage
 import com.knightsofnull.int20h.itempage.ItemPageActivity
+import com.knightsofnull.int20h.main.MainActivity
 import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.model.Item
 import com.knightsofnull.int20h.model.Request
@@ -27,6 +28,7 @@ import com.knightsofnull.int20h.util.logD
 import kotlinx.android.synthetic.main.fragment_shop.*
 import kotlinx.android.synthetic.main.view_bottom_sheet.*
 import kotlinx.android.synthetic.main.view_bottom_sheet.view.*
+import org.jetbrains.anko.act
 import kotlin.properties.Delegates
 
 /**
@@ -61,7 +63,6 @@ class ShopFragment : Fragment(), ShopView {
         val adapter = list.adapter as ShopAdapter
         adapter.type = ShopAdapter.TYPE_ITEM
         adapter.replaceData(items)
-        logD("REPLACE ITEMS CALLED")
     }
 
     override fun showRequests(requests: List<Request>) {
@@ -70,7 +71,6 @@ class ShopFragment : Fragment(), ShopView {
         val adapter = list.adapter as ShopAdapter
         adapter.type = ShopAdapter.TYPE_REQUEST
         adapter.replaceData(requests)
-        logD("SHOW REQUESTS CALLED")
     }
 
     override fun showNewRequestForm() {
@@ -102,6 +102,9 @@ class ShopFragment : Fragment(), ShopView {
     override fun navigateToItemPreview(item: Item) {
         logD("item = $item")
         val intent = Intent(activity, ItemPageActivity::class.java)
+        if (activity is MainActivity) {
+            intent.putExtra(ItemPageActivity.KEY_COLOR, (activity as MainActivity).getPageColor())
+        }
         intent.putExtra(ItemPageActivity.KEY_ITEM, item)
         startActivity(intent)
     }
