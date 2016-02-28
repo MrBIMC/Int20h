@@ -1,10 +1,12 @@
 package com.knightsofnull.int20h.shop
 
 import android.app.Fragment
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.design.widget.BottomSheetBehavior
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -74,6 +76,18 @@ class ShopFragment : Fragment(), ShopView {
     override fun showNewRequestForm() {
         list.visibility = View.GONE
         addRequestContainer.visibility = View.VISIBLE
+
+        createRequestButton.setOnClickListener {
+            val act = activity as AppCompatActivity
+//            CustomBottomSheetDialogFragment().show(act.supportFragmentManager, "dialog")
+                    //            BottomSheet.Builder(this).sheet(R.menu.noicon).listener(new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    ListAcitivty.this.onClick(adapter.getItem(position), which);
+//                }
+//            }).build()
+        }
+
         logD("ADD NEW CALLED")
     }
 
