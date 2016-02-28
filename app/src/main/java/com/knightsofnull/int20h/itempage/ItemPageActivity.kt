@@ -24,11 +24,10 @@ class ItemPageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val item = intent.extras.getSerializable(KEY_ITEM) as Item
-        logD("got item: $item")
 
         supportActionBar?.title = item.name
-        price.append(" ${item.price}")
-        rating.append(" ${item.itemRating.toString()}")
+        price.text = item.price
+        rating.text = item.itemRating.toString()
 
         Glide.with(this).load(item.itemImage).into(image)
     }

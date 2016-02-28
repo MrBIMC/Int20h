@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
 
     private fun filterToArrow() {
         filtersFab.animate().rotation(180f).setDuration(500).setListener(AnimationEndListener {
-            filtersFab.setImageResource(R.drawable.ic_arrow_upward_black_24dp)
+            filtersFab.setImageResource(R.drawable.ic_arrow_upward_white_24dp)
         }).start()
     }
 
@@ -117,10 +117,10 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.main, menu)
+//        return true
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {

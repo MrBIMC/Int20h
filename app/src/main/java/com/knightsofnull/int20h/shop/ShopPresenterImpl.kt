@@ -6,6 +6,7 @@ import com.knightsofnull.int20h.event.OnCategorySelectedEvent
 import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
 import com.knightsofnull.int20h.model.Category
+import com.knightsofnull.int20h.model.Request
 import com.knightsofnull.int20h.util.ScrollDirection
 import com.knightsofnull.int20h.util.logD
 import org.greenrobot.eventbus.EventBus
@@ -40,6 +41,14 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
 
     override fun onItemsListScrolled(direction: ScrollDirection) {
         EventBus.getDefault().post(OnScrollInChildEvent(direction))
+    }
+
+    override fun onRequestCreated(request: Request) {
+        provider.requestItem(request)
+    }
+
+    override fun onRequestButtonClicked() {
+        view?.showRequestDialog()
     }
 
     override fun onResume() {

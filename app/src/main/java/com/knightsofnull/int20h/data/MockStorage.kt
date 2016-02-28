@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.knightsofnull.int20h.App
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.*
+import com.knightsofnull.int20h.util.logD
 import org.json.JSONArray
 import java.util.*
 
@@ -67,7 +68,7 @@ class MockStorage : Storage {
         val storage = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE)
         val requestsJson = storage.getString(REQUESTS, "")
         return if (!requestsJson.isEmpty()) {
-            val token = object: TypeToken<List<Request>>() {}
+            val token = object: TypeToken<ArrayList<Request>>() {}
             Gson().fromJson(requestsJson, token.type)
         } else listOf()
     }
@@ -77,7 +78,7 @@ class MockStorage : Storage {
         val storage = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE)
         val requestsJson = storage.getString(REQUESTS, "")
         val requests = if (!requestsJson.isEmpty()) {
-            val token = object: TypeToken<List<Request>>() {}
+            val token = object: TypeToken<ArrayList<Request>>() {}
             Gson().fromJson(requestsJson, token.type)
         } else ArrayList<Request>()
 
@@ -88,7 +89,7 @@ class MockStorage : Storage {
             requests.add(item)
         }
 
-        storage.edit().putString(STORAGE, Gson().toJson(requests))
+        storage.edit().putString(REQUESTS, Gson().toJson(requests)).commit()
     }
 
     companion object {

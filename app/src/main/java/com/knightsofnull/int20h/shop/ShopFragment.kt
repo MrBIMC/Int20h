@@ -49,10 +49,10 @@ class ShopFragment : Fragment(), ShopView {
         super.onViewCreated(view, savedInstanceState)
 
         list.layoutManager = LinearLayoutManager(activity)
-        list.adapter = ShopAdapter(listOf()) { position ->
-            presenter.onItemClicked(position)
-        }
+        list.adapter = ShopAdapter(listOf()) { position -> presenter.onItemClicked(position) }
         list.addOnScrollListener(RecyclerScrollListener(presenter))
+
+        createRequestButton.setOnClickListener { presenter.onRequestButtonClicked() }
     }
 
     override fun showItems(items: List<Item>) {
@@ -76,19 +76,12 @@ class ShopFragment : Fragment(), ShopView {
     override fun showNewRequestForm() {
         list.visibility = View.GONE
         addRequestContainer.visibility = View.VISIBLE
+    }
 
-        createRequestButton.setOnClickListener {
-            val act = activity as AppCompatActivity
-//            CustomBottomSheetDialogFragment().show(act.supportFragmentManager, "dialog")
-                    //            BottomSheet.Builder(this).sheet(R.menu.noicon).listener(new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    ListAcitivty.this.onClick(adapter.getItem(position), which);
-//                }
-//            }).build()
-        }
-
-        logD("ADD NEW CALLED")
+    override fun showRequestDialog() {
+        RequestDialog(activity).onAcceptButtonClicked { request ->
+            presenter.onRequestCreated(request)
+        }.show()
     }
 
     override fun onDestroy() {

@@ -21,16 +21,14 @@ class PromDataProvider(val storage: Storage = MockStorage()) : DataProvider {
 
     override fun getItems(typeId: Int, categoryId: Int, query: String): List<Item> {
         return (if (categoryId != Category.ALL.catId) {
-            logD("categoryId=$categoryId")
             storage.getItems().filter { it.catId == categoryId }
         } else {
             storage.getCategories().filter { it.typeId == typeId }.flatMap { category ->
-                logD("Filtering, typeId=$typeId")
                 storage.getItems().filter { item ->
                     item.catId == category.catId
                 }
             }
-        }).filter { it.name.contains(query) }
+        }).filter { it.name.toLowerCase().contains(query.toLowerCase()) }
     }
 
     override fun getProducer(producerId: Int) = storage.getProducers().filter {
@@ -38,7 +36,10 @@ class PromDataProvider(val storage: Storage = MockStorage()) : DataProvider {
     }.first()
 
     override fun getRequestsFor(catId: Int, query: String) = storage.getRequests().filter {
-        it.catId == catId && it.name.contains(query)
+        val matchesQuery = it.name.toLowerCase().contains(query.toLowerCase())
+        if (catId != Category.ALL.catId) {
+            it.catId == catId && matchesQuery
+        } else matchesQuery
     }
 
     override fun requestItem(item: Request) {

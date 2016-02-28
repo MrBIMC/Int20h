@@ -32,10 +32,10 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
+        val context = holder.itemView.context
         if (type == TYPE_ITEM && holder is ItemHolder) {
             val item = data[position] as Item
 
-            val context = holder.itemView.context
             holder.name.text = item.name
             holder.rating.text = context.getString(R.string.item_rating, item.itemRating)
             Glide.with(holder.itemView.context).load(item.itemImage).into(holder.image)
@@ -44,6 +44,7 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
 
             holder.title.text = item.name
             holder.description.text = item.description
+            holder.rating.text = context.getString(R.string.item_rating, item.votes)
         }
     }
 
@@ -83,6 +84,7 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
     class RequestHolder(view: View, onItemClick: (Int) -> Unit) : ShopViewHolder(view, onItemClick) {
         val title by lazy { view.find<TextView>(R.id.title) }
         val description by lazy { view.find<TextView>(R.id.description) }
+        val rating by lazy { view.find<TextView>(R.id.votes) }
     }
 
     companion object {
