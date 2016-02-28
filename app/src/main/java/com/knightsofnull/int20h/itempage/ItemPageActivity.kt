@@ -30,8 +30,6 @@ class ItemPageActivity : AppCompatActivity() {
         price.append(item.price)
         rating.append(item.itemRating.toString())
 
-        btnOrder.background.mutate().setColorFilter(Color.parseColor("#FFC107"), PorterDuff.Mode.SRC_ATOP)
-
         Glide.with(this).load(item.itemImage).into(image)
     }
 

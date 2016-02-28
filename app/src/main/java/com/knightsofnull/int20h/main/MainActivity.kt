@@ -10,19 +10,12 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.authentication.login.LoginActivity
-import com.knightsofnull.int20h.event.OnScrollInChildEvent
-import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
-import com.knightsofnull.int20h.util.ScrollDirection
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_bottom_sheet.*
 import kotlinx.android.synthetic.main.view_searchbar.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.find
 import java.util.*
 import kotlin.properties.Delegates
 

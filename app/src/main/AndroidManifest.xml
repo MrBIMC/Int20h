@@ -22,6 +22,14 @@
 
         <activity android:name=".itempage.ItemPageActivity" />
 
+        <activity android:name=".itemrequest.ItemRequestActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
