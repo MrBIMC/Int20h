@@ -23,8 +23,8 @@ class MockStorage : Storage {
 
     override fun getCategories() = listOf(
             Category(1, 1, "Building"),
-            Category(2, 1, "Medicine"),
             Category(3, 1, "Security and protection"),
+            Category(2, 1, "Medicine"),
             Category(4, 1, "Metal and rubber"),
             Category(5, 1, "Production tools"),
             Category(6, 2, "Clothes and accessories"),

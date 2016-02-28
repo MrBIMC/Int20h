@@ -5,7 +5,6 @@
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:fitsSystemWindows="true"
     app:behavior_hideable="true"
     app:behavior_peekHeight="100dp"
     app:layout_behavior="@string/bottom_sheet_behavior"
@@ -13,11 +12,11 @@
 
 
     <LinearLayout
+        android:id="@+id/bottomSheetContainer"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="26dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
         android:background="@android:color/white"
         android:orientation="vertical">
 
@@ -25,17 +24,19 @@
             android:id="@+id/currentCategory"
             android:layout_width="wrap_content"
             android:layout_height="76dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:gravity="center_vertical"
             android:text="@string/category"
             android:textColor="@color/primary_text"
             android:textSize="20sp" />
 
-        <GridView
-            android:id="@+id/grid"
+        <com.knightsofnull.int20h.view.ChipListView
+            android:id="@+id/chipsView"
             android:layout_width="match_parent"
-            android:layout_height="224dp"
-            android:verticalSpacing="6dp"
-            android:numColumns="2" />
+            android:layout_height="match_parent"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
 
     </LinearLayout>
 
@@ -47,6 +48,7 @@
         android:rotation="180" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/filtersFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

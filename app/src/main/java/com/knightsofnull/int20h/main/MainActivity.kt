@@ -1,22 +1,24 @@
 package com.knightsofnull.int20h.main
 
+import android.animation.Animator
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.authentication.login.LoginActivity
-
+import com.knightsofnull.int20h.util.AnimationEndListener
+import com.knightsofnull.int20h.util.logD
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_bottom_sheet.*
 import kotlinx.android.synthetic.main.view_searchbar.*
-import java.util.*
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager.OnPageChangeListener {
@@ -34,20 +36,39 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         searchBar.addTextChangedListener(this)
         viewpager.addOnPageChangeListener(this)
-
-        grid.adapter = GridAdapter(this, ArrayList())
+        filtersFab.setOnClickListener { presenter.onFiltersFabClicked() }
+        chipsView.setOnChipClickListener { presenter.onCategorySelected(it) }
     }
 
     override fun collapseCategories() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        arrowToFilter()
     }
 
     override fun expandCategories() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        filterToArrow()
+    }
+
+    private fun filterToArrow() {
+        filtersFab.animate().rotation(180f).setDuration(500).setListener(AnimationEndListener {
+            filtersFab.setImageResource(R.drawable.ic_arrow_upward_black_24dp)
+        }).start()
+    }
+
+    private fun arrowToFilter() {
+        filtersFab.animate().rotation(0f).setDuration(500).setListener(AnimationEndListener {
+            filtersFab.setImageResource(R.drawable.ic_filter_variant_white_48dp)
+        }).start()
     }
 
     override fun clearSearchBar() {
         searchBar.setText("")
+    }
+
+    override fun changeBottomSheetState() {
+        val hidden = bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED
+        if (hidden) expandCategories() else collapseCategories()
     }
 
     override fun setCurrentCategory(category: String) {
@@ -55,8 +76,7 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
     }
 
     override fun setChips(chips: List<String>) {
-        val adapter = grid.adapter as GridAdapter
-        adapter.replaceData(chips)
+        chipsView.setChips(chips)
     }
 
 
@@ -86,13 +106,15 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
                 2 -> it to R.drawable.ic_account_star_white_48dp
                 else -> it to R.mipmap.ic_launcher
             }
-        }.forEach { tabs.getTabAt(it.first)?.apply {
-            if(android.os.Build.VERSION.SDK_INT >= 21){
-                icon = resources.getDrawable(it.second, theme)
-            } else {
-                icon = resources.getDrawable(it.second)
+        }.forEach {
+            tabs.getTabAt(it.first)?.apply {
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    icon = resources.getDrawable(it.second, theme)
+                } else {
+                    icon = resources.getDrawable(it.second)
+                }
             }
-        } }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

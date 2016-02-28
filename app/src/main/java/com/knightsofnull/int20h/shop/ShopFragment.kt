@@ -59,6 +59,7 @@ class ShopFragment : Fragment(), ShopView {
         val adapter = list.adapter as ShopAdapter
         adapter.type = ShopAdapter.TYPE_ITEM
         adapter.replaceData(items)
+        logD("REPLACE ITEMS CALLED")
     }
 
     override fun showRequests(requests: List<Request>) {
@@ -67,11 +68,13 @@ class ShopFragment : Fragment(), ShopView {
         val adapter = list.adapter as ShopAdapter
         adapter.type = ShopAdapter.TYPE_REQUEST
         adapter.replaceData(requests)
+        logD("SHOW REQUESTS CALLED")
     }
 
     override fun showNewRequestForm() {
         list.visibility = View.GONE
         addRequestContainer.visibility = View.VISIBLE
+        logD("ADD NEW CALLED")
     }
 
     override fun onDestroy() {

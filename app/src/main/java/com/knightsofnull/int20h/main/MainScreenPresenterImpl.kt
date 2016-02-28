@@ -3,6 +3,7 @@ package com.knightsofnull.int20h.main
 import android.support.design.widget.BottomSheetBehavior
 import com.knightsofnull.int20h.data.DataProvider
 import com.knightsofnull.int20h.data.PromDataProvider
+import com.knightsofnull.int20h.event.OnCategorySelectedEvent
 import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
 import com.knightsofnull.int20h.model.Category
@@ -40,6 +41,7 @@ class MainScreenPresenterImpl(
         currentCategory = position
         val currentCatName = provider.getCategories(currentType)[currentCategory].name
         view?.setCurrentCategory(currentCatName)
+        EventBus.getDefault().post(OnCategorySelectedEvent(position))
     }
 
     override fun onResume() {
@@ -55,12 +57,15 @@ class MainScreenPresenterImpl(
         currentType = pageIndex + 1
         currentCategory = 0
         view?.let { v ->
-            v.collapseCategories()
             v.clearSearchBar()
             val categories = provider.getCategories(currentType)
             v.setChips(categories.map { it.name })
             v.setCurrentCategory(categories[currentCategory].name)
         }
+    }
+
+    override fun onFiltersFabClicked() {
+        view?.changeBottomSheetState()
     }
 
     override fun onDestroy() {

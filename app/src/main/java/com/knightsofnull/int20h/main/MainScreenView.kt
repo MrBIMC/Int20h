@@ -11,6 +11,8 @@ interface MainScreenView {
     fun collapseCategories()
     fun expandCategories()
 
+    fun changeBottomSheetState()
+
     fun setCurrentCategory(category: String)
 
     fun setChips(chips: List<String>)

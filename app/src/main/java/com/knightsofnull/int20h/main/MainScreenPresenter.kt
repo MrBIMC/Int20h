@@ -9,6 +9,8 @@ interface MainScreenPresenter {
     fun onCategorySelected(position: Int)
     fun onQueryChanged(query: String)
 
+    fun onFiltersFabClicked()
+
     fun onResume()
     fun onDestroy()
 }
