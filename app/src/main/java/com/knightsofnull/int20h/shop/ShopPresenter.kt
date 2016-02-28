@@ -12,5 +12,5 @@ interface ShopPresenter {
 
     fun onDestroy()
     fun onResume()
-
+    fun onPause()
 }

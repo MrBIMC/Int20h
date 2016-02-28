@@ -5,9 +5,10 @@ package com.knightsofnull.int20h.main
  */
 interface MainScreenPresenter {
 
-    fun onPageChanged()
+    fun onPageChanged(pageIndex: Int)
     fun onCategorySelected(position: Int)
     fun onQueryChanged(query: String)
 
+    fun onResume()
     fun onDestroy()
 }

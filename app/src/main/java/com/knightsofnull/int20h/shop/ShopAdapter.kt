@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.Item
 import com.knightsofnull.int20h.model.Request
@@ -36,6 +37,7 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
 
             holder.name.text = item.name
             holder.rating.text = "Rating: ${item.itemRating}"
+            Glide.with(holder.itemView.context).load(item.itemImage).into(holder.image)
         } else if (holder is RequestHolder) {
             val item = data[position] as Request
 
@@ -67,7 +69,7 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
     }
 
     class ItemHolder(view: View, onItemClick: (Int) -> Unit) : ShopViewHolder(view, onItemClick) {
-        
+
         val name by lazy { view.findViewById(R.id.name) as TextView }
         val rating by lazy { view.findViewById(R.id.rating) as TextView }
         val image by lazy { view.findViewById(R.id.image) as ImageView }

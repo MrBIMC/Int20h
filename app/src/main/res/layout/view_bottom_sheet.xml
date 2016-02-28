@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
@@ -11,36 +11,41 @@
     app:layout_behavior="@string/bottom_sheet_behavior"
     tools:showIn="@layout/activity_main">
 
+
     <LinearLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="26dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <!--<com.wefika.flowlayout.FlowLayout-->
-            <!--android:id="@+id/flowLayout"-->
-            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="start|top"/>-->
-
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Category: ALL"
+            android:id="@+id/currentCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="76dp"
+            android:gravity="center_vertical"
+            android:text="@string/category"
             android:textColor="@color/primary_text"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
+
+        <GridView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="224dp"
+            android:verticalSpacing="6dp"
+            android:numColumns="2" />
+
     </LinearLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:rotation="180"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shadow" />
+        android:background="@drawable/shadow"
+        android:rotation="180" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

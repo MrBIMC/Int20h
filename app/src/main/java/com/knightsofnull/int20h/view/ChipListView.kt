@@ -2,14 +2,17 @@ package com.knightsofnull.int20h.view
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.knightsofnull.int20h.R
+import com.knightsofnull.int20h.util.logD
 import java.util.*
 
 /**
@@ -18,42 +21,22 @@ import java.util.*
 class ChipListView : LinearLayout {
 
     private var chips = ArrayList<String>()
+    private var onChipClick: (v: Int) -> Unit = { }
 
-    private var onChipClick: (v: String) -> Unit = { }
+    constructor(context: Context?) : super(context)
 
-    constructor(context: Context?) : super(context) {
-        init()
-    }
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(attrs)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(attrs)
-    }
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init(attrs)
-    }
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    private fun addRow() {
-        val row = LinearLayout(context)
-        row.orientation = LinearLayout.HORIZONTAL
-        row.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT)
-        addView(row)
-        invalidate()
-    }
-
-    private fun init(attrs: AttributeSet? = null) {
+    init {
         orientation = LinearLayout.VERTICAL
-//        updateChipViews()
     }
 
-    private fun updateChipViews() {
+    private fun addChipViews() {
         val inflater = LayoutInflater.from(context)
         chips.forEach { chipName ->
             val chipView = inflater.inflate(R.layout.view_chip, this, false)
@@ -61,34 +44,43 @@ class ChipListView : LinearLayout {
             with(chipView) {
                 val text = findViewById(R.id.chipText) as TextView
                 text.text = chipName
-                setOnClickListener { onChipClick(chipName) }
+                setOnClickListener { onChipClick(chips.indexOf(chipName)) }
                 addNewChip(chipView)
             }
         }
     }
 
     private fun addNewChip(chip: View) {
-        if(childCount == 0) addRow()
-        else if(getChildAt(childCount - 1).measuredWidth + chip.measuredWidth >= measuredWidth) addRow()
+        val empty = childCount == 0
+        val lastChild = getChildAt(childCount - 1) as ViewGroup?
+        val lastRowIsFull = lastChild?.let { it.childCount == 3 } ?: false
+
+        if(empty || lastRowIsFull) {
+            addRow()
+        }
 
         val row: LinearLayout = getChildAt(childCount - 1) as LinearLayout
         row.addView(chip)
-        invalidate()
-
-        Log.d(javaClass.simpleName, "childViewWidth = ${chip.measuredWidth} + row width = ${getChildAt(childCount - 1).measuredWidth} parent width = $measuredWidth")
     }
 
-    fun addChips(chips: List<String>) {
+    fun setChips(chips: List<String>) {
+        this.chips.clear()
         this.chips.addAll(chips)
-        updateChipViews()
+        removeAllViews()
+        addChipViews()
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        updateChipViews()
+    private fun addRow() {
+        val row = LinearLayout(context)
+        row.orientation = LinearLayout.HORIZONTAL
+        row.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT)
+        addView(row)
     }
 
-    fun setOnChipClickListener(onChipClick: (v: String) -> Unit) {
+
+    fun setOnChipClickListener(onChipClick: (v: Int) -> Unit) {
         this.onChipClick = onChipClick
     }
 }

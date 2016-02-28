@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.bumptech.glide.Glide
 import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.Item
 import com.knightsofnull.int20h.util.logD
@@ -30,6 +31,8 @@ class ItemPageActivity : AppCompatActivity() {
         rating.append(item.itemRating.toString())
 
         btnOrder.background.mutate().setColorFilter(Color.parseColor("#FFC107"), PorterDuff.Mode.SRC_ATOP)
+
+        Glide.with(this).load(item.itemImage).into(image)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

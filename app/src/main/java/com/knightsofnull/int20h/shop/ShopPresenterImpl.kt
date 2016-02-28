@@ -18,10 +18,6 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
 
     var currentCategory = Category.ALL.catId
 
-    init {
-        EventBus.getDefault().register(this)
-    }
-
     @Subscribe
     fun onSearchQuery(queryEvent: SearchQueryEnteredEvent) {
         showItems(queryEvent.query)
@@ -44,11 +40,15 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
 
     override fun onResume() {
         showItems()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onDestroy() {
         view = null
-        EventBus.getDefault().unregister(this)
     }
 
     private fun showItems(query: String = "") {

@@ -1,8 +1,11 @@
 package com.knightsofnull.int20h.main
 
 import android.support.design.widget.BottomSheetBehavior
+import com.knightsofnull.int20h.data.DataProvider
+import com.knightsofnull.int20h.data.PromDataProvider
 import com.knightsofnull.int20h.event.OnScrollInChildEvent
 import com.knightsofnull.int20h.event.SearchQueryEnteredEvent
+import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.util.ScrollDirection
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -10,7 +13,12 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by yarolegovich on 27.02.2016.
  */
-class MainScreenPresenterImpl(var view: MainScreenView?) : MainScreenPresenter {
+class MainScreenPresenterImpl(
+        var view: MainScreenView?,
+        val provider: DataProvider = PromDataProvider()) : MainScreenPresenter {
+
+    private var currentCategory = Category.ALL.catId
+    private var currentType = 1
 
     init {
         EventBus.getDefault().register(this)
@@ -29,17 +37,35 @@ class MainScreenPresenterImpl(var view: MainScreenView?) : MainScreenPresenter {
     }
 
     override fun onCategorySelected(position: Int) {
-
+        currentCategory = position
+        val currentCatName = provider.getCategories(currentType)[currentCategory].name
+        view?.setCurrentCategory(currentCatName)
     }
 
-    override fun onPageChanged() {
-        view?.collapseCategories()
-        view?.clearSearchBar()
+    override fun onResume() {
+        view?.let { v ->
+            val categories = provider.getCategories(currentType)
+            val currentCatName = categories[currentCategory].name
+            v.setChips(categories.map { it.name })
+            v.setCurrentCategory(currentCatName)
+        }
+    }
+
+    override fun onPageChanged(pageIndex: Int) {
+        currentType = pageIndex + 1
+        currentCategory = 0
+        view?.let { v ->
+            v.collapseCategories()
+            v.clearSearchBar()
+            val categories = provider.getCategories(currentType)
+            v.setChips(categories.map { it.name })
+            v.setCurrentCategory(categories[currentCategory].name)
+        }
     }
 
     override fun onDestroy() {
-        view = null
         EventBus.getDefault().unregister(this)
+        view = null
     }
 
 }

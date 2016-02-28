@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.view_searchbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.find
+import java.util.*
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager.OnPageChangeListener {
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         searchBar.addTextChangedListener(this)
         viewpager.addOnPageChangeListener(this)
+
+        grid.adapter = GridAdapter(this, ArrayList())
     }
 
     override fun collapseCategories() {
@@ -54,12 +57,23 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         searchBar.setText("")
     }
 
-    @Subscribe
-    fun onScrollInChildEvent(event: OnScrollInChildEvent) {
-        when (event.direction) {
-            ScrollDirection.DOWN -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            ScrollDirection.UP -> bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
+    override fun setCurrentCategory(category: String) {
+        currentCategory.text = getString(R.string.category, category)
+    }
+
+    override fun setChips(chips: List<String>) {
+        val adapter = grid.adapter as GridAdapter
+        adapter.replaceData(chips)
+    }
+
+
+    override fun hideCategories() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
     }
 
     override fun onDestroy() {
@@ -79,14 +93,12 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
                 2 -> it to R.drawable.ic_account_star_white_48dp
                 else -> it to R.mipmap.ic_launcher
             }
-        }
-        .forEach { tabs.getTabAt(it.first)?.apply {
+        }.forEach { tabs.getTabAt(it.first)?.apply {
             if(android.os.Build.VERSION.SDK_INT >= 21){
                 icon = resources.getDrawable(it.second, theme)
             } else {
                 icon = resources.getDrawable(it.second)
             }
-
         } }
     }
 
@@ -105,6 +117,10 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
         return false
     }
 
+    override fun onPageSelected(position: Int) {
+        presenter.onPageChanged(position)
+    }
+
     override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
         presenter.onQueryChanged(text.toString())
     }
@@ -119,11 +135,5 @@ class MainActivity : AppCompatActivity(), TextWatcher, MainScreenView, ViewPager
     }
 
     override fun afterTextChanged(editable: Editable) {
-    }
-
-    override fun hideCategories() {
-    }
-
-    override fun onPageSelected(p0: Int) {
     }
 }

@@ -10,4 +10,8 @@ interface MainScreenView {
     fun hideCategories()
     fun collapseCategories()
     fun expandCategories()
+
+    fun setCurrentCategory(category: String)
+
+    fun setChips(chips: List<String>)
 }

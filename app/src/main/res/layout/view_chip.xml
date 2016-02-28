@@ -1,23 +1,24 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:id="@+id/chipHolder"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="0dp"
-    android:clickable="true"
     android:layout_margin="6dp"
     android:background="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/cardview_shadow_start_color">
+    android:clickable="true"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/cardview_shadow_start_color"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="0dp">
+
     <TextView
         android:id="@+id/chipText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:paddingBottom="4dp"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="test"/>
+        android:singleLine="true"
+        android:text="test" />
 </android.support.v7.widget.CardView>

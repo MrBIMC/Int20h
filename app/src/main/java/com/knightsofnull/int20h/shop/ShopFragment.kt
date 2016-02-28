@@ -79,6 +79,11 @@ class ShopFragment : Fragment(), ShopView {
         presenter.onDestroy()
     }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
+
     override fun onResume() {
         super.onResume()
         presenter.onResume()

@@ -5,6 +5,7 @@ import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.knightsofnull.int20h.App
+import com.knightsofnull.int20h.R
 import com.knightsofnull.int20h.model.*
 import org.json.JSONArray
 import java.util.*
@@ -39,16 +40,16 @@ class MockStorage : Storage {
     )
 
     override fun getItems() = listOf(
-            Item(1, "Bricks", "100 uah", 1, 1, 214),
-            Item(2, "Clay", "30 uah", 1, 1, 123),
-            Item(3, "Screws", "20 uah", 1, 1, 312),
-            Item(4, "Hematogen", "12 uah", 2, 2, 1299),
-            Item(5, "Lacoste T-shirt", "400 uah", 6, 3, 502),
-            Item(6, "Gabano shoes", "900 uah", 6, 3, 1300),
-            Item(7, "Boxing gloves", "430 uah", 9, 3, 514),
-            Item(8, "Android app development", "15$/hour", 13, 4, 5020),
-            Item(9, "UI/UX design", "20$/hour", 11, 5, 3200),
-            Item(10, "App reviews", "10$/hour", 12, 6, 9999)
+            Item(1, "Bricks", "100 uah", 1, 1, 214, R.drawable.bricks),
+            Item(2, "Clay", "30 uah", 1, 1, 123, R.drawable.clay),
+            Item(3, "Screws", "20 uah", 1, 1, 312, R.drawable.screws),
+            Item(4, "Hematogen", "12 uah", 2, 2, 1299, R.drawable.hematogen),
+            Item(5, "Lacoste T-shirt", "400 uah", 6, 3, 502, R.drawable.shirts),
+            Item(6, "Gabano shoes", "900 uah", 6, 3, 1300, R.drawable.shoes),
+            Item(7, "Boxing gloves", "430 uah", 9, 3, 514, R.drawable.gloves),
+            Item(8, "Android app development", "15$/hour", 13, 4, 5020, R.drawable.it),
+            Item(9, "UI/UX design", "20$/hour", 11, 5, 3200, R.drawable.ux),
+            Item(10, "App reviews", "10$/hour", 12, 6, 9999, R.drawable.pr)
     )
 
     override fun getProducers() = listOf(
