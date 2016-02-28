@@ -21,9 +21,11 @@ class PromDataProvider(val storage: Storage = MockStorage()) : DataProvider {
 
     override fun getItems(typeId: Int, categoryId: Int, query: String): List<Item> {
         return (if (categoryId != Category.ALL.catId) {
+            logD("categoryId=$categoryId")
             storage.getItems().filter { it.catId == categoryId }
         } else {
             storage.getCategories().filter { it.typeId == typeId }.flatMap { category ->
+                logD("Filtering, typeId=$typeId")
                 storage.getItems().filter { item ->
                     item.catId == category.catId
                 }

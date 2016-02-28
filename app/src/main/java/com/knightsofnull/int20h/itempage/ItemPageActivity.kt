@@ -27,8 +27,8 @@ class ItemPageActivity : AppCompatActivity() {
         logD("got item: $item")
 
         supportActionBar?.title = item.name
-        price.append(item.price)
-        rating.append(item.itemRating.toString())
+        price.append(" ${item.price}")
+        rating.append(" ${item.itemRating.toString()}")
 
         Glide.with(this).load(item.itemImage).into(image)
     }

@@ -35,8 +35,9 @@ class ShopAdapter(items: List<ShopModel>, val onItemClick: (Int) -> Unit) :
         if (type == TYPE_ITEM && holder is ItemHolder) {
             val item = data[position] as Item
 
+            val context = holder.itemView.context
             holder.name.text = item.name
-            holder.rating.text = "Rating: ${item.itemRating}"
+            holder.rating.text = context.getString(R.string.item_rating, item.itemRating)
             Glide.with(holder.itemView.context).load(item.itemImage).into(holder.image)
         } else if (holder is RequestHolder) {
             val item = data[position] as Request

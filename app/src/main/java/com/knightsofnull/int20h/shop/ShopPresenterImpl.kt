@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.Subscribe
 class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
                         val provider: DataProvider = PromDataProvider()) : ShopPresenter {
 
-    var currentCategory = Category.ALL.catId
+    var currentCategory = 0
 
     @Subscribe
     fun onSearchQuery(queryEvent: SearchQueryEnteredEvent) {
@@ -31,7 +31,8 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
     }
 
     override fun onItemClicked(position: Int) {
-        val item = provider.getItems(typeId, currentCategory)[position]
+        val catId = provider.getCategories(typeId)[currentCategory].catId
+        val item = provider.getItems(typeId, catId)[position]
         view?.navigateToItemPreview(item)
     }
 
@@ -40,6 +41,7 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
     }
 
     override fun onResume() {
+        currentCategory = 0
         EventBus.getDefault().register(this)
         showItems()
     }
@@ -53,11 +55,12 @@ class ShopPresenterImpl(var view: ShopView?, val typeId: Int,
     }
 
     private fun showItems(query: String = "") {
-        val items = provider.getItems(typeId, currentCategory, query)
+        val catId = provider.getCategories(typeId)[currentCategory].catId
+        val items = provider.getItems(typeId, catId, query)
         if (!items.isEmpty()) {
             view?.showItems(items)
         } else {
-            val requests = provider.getRequestsFor(currentCategory, query)
+            val requests = provider.getRequestsFor(catId, query)
             if (requests.isEmpty()) {
                 view?.showNewRequestForm()
             } else {

@@ -22,34 +22,34 @@ class MockStorage : Storage {
     )
 
     override fun getCategories() = listOf(
-            Category(1, 1, "Building"),
-            Category(3, 1, "Security and protection"),
-            Category(2, 1, "Medicine"),
-            Category(4, 1, "Metal and rubber"),
-            Category(5, 1, "Production tools"),
-            Category(6, 2, "Clothes and accessories"),
-            Category(7, 2, "For kids"),
-            Category(8, 2, "Auto and moto"),
-            Category(9, 2, "Sport"),
-            Category(10, 2, "Health"),
-            Category(11, 3, "Design"),
-            Category(12, 3, "Ads and PR"),
-            Category(13, 3, "IT services"),
-            Category(14, 3, "Industrial services"),
-            Category(15, 3, "Jurisdiction")
+            Category(1, 1, "Строительство"),
+            Category(3, 1, "Безопасность"),
+            Category(2, 1, "Медицина"),
+            Category(4, 1, "Метал и резина"),
+            Category(5, 1, "Инструменты"),
+            Category(6, 2, "Одежда"),
+            Category(7, 2, "Для детей"),
+            Category(8, 2, "Авто и мото"),
+            Category(9, 2, "Спорт"),
+            Category(10, 2, "Здоровье"),
+            Category(11, 3, "Дизайн"),
+            Category(12, 3, "PR и реклама"),
+            Category(13, 3, "IT услуги"),
+            Category(14, 3, "Промышленные услуги"),
+            Category(15, 3, "Юриспунденция")
     )
 
     override fun getItems() = listOf(
-            Item(1, "Bricks", "100 uah", 1, 1, 214, R.drawable.bricks),
-            Item(2, "Clay", "30 uah", 1, 1, 123, R.drawable.clay),
-            Item(3, "Screws", "20 uah", 1, 1, 312, R.drawable.screws),
-            Item(4, "Hematogen", "12 uah", 2, 2, 1299, R.drawable.hematogen),
-            Item(5, "Lacoste T-shirt", "400 uah", 6, 3, 502, R.drawable.shirts),
-            Item(6, "Gabano shoes", "900 uah", 6, 3, 1300, R.drawable.shoes),
-            Item(7, "Boxing gloves", "430 uah", 9, 3, 514, R.drawable.gloves),
-            Item(8, "Android app development", "15$/hour", 13, 4, 5020, R.drawable.it),
-            Item(9, "UI/UX design", "20$/hour", 11, 5, 3200, R.drawable.ux),
-            Item(10, "App reviews", "10$/hour", 12, 6, 9999, R.drawable.pr)
+            Item(1, "Кирпичи", "100 uah", 1, 1, 214, R.drawable.bricks),
+            Item(2, "Глина", "30 uah", 1, 1, 123, R.drawable.clay),
+            Item(3, "Шурупы", "20 uah", 1, 1, 312, R.drawable.screws),
+            Item(4, "Гематоген", "12 uah", 2, 2, 1299, R.drawable.hematogen),
+            Item(5, "Lacoste футболки", "400 uah", 6, 3, 502, R.drawable.shirts),
+            Item(6, "Gabano кросовки", "900 uah", 6, 3, 1300, R.drawable.shoes),
+            Item(7, "Боксерские перчатки", "430 uah", 9, 3, 514, R.drawable.gloves),
+            Item(8, "Android OS приложения", "15$/hour", 13, 4, 5020, R.drawable.it),
+            Item(9, "UI/UX дизайн", "20$/hour", 11, 5, 3200, R.drawable.ux),
+            Item(10, "Обзоры приложений", "10$/hour", 12, 6, 9999, R.drawable.pr)
     )
 
     override fun getProducers() = listOf(
