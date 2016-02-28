@@ -1,35 +1,22 @@
 package com.knightsofnull.int20h.shop
 
 import android.app.Fragment
-import android.content.DialogInterface
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.NonNull
-import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.TextView
 import com.knightsofnull.int20h.R
-import com.knightsofnull.int20h.data.MockStorage
 import com.knightsofnull.int20h.itempage.ItemPageActivity
 import com.knightsofnull.int20h.main.MainActivity
-import com.knightsofnull.int20h.model.Category
 import com.knightsofnull.int20h.model.Item
 import com.knightsofnull.int20h.model.Request
-import com.knightsofnull.int20h.model.Type
 import com.knightsofnull.int20h.util.ScrollDirection
 import com.knightsofnull.int20h.util.logD
 
 import kotlinx.android.synthetic.main.fragment_shop.*
-import kotlinx.android.synthetic.main.view_bottom_sheet.*
-import kotlinx.android.synthetic.main.view_bottom_sheet.view.*
-import org.jetbrains.anko.act
 import kotlin.properties.Delegates
 
 /**
